@@ -15,6 +15,22 @@ def binarize_arr(arr):
     return rArr
 
 
+# Beskrivning: Denna funktion räknar ut xor summan eller nim summan för antalet pinnar i varje hög. Detta innebär att arrayen med antalet pinnar i varje hög blir omvandlas från tal med basen 10 till binära tal. Sedan räknas alla 1or på varje position hos de binära talen. Om antelet 1or på en position är jämnt blir talet på den platsen i summan 0, annars blir den 1. Denna binära xor-summa omvandlas sedan till bas 10 och retuneras.  
+#
+# Argument:
+# arr: En array med antalet pinnar i varje hög i nim spelet. 
+#
+# Return: 
+# int(sum, 2): Xor-summan för antalet pinnar i varje hög i basen 10.
+#
+# Exempel: 
+# xor_sum([1, 2, 3, 4]) => 4
+# xor_sum([10, 2, 32, 11]) => 35
+# xor_sum([1, 7, 12, 100]) => 110
+# 
+#
+# Datum: 2025-04-26
+# Namn: Arvid Möller
 def xor_sum(arr):
     arr = binarize_arr(arr)
 
@@ -41,26 +57,37 @@ def xor_sum(arr):
     return int(sum, 2)
 
 
+# Beskrivning: Denna funktion hittar det bästa draget geonom att iterera genom alla möjliga drag och checka den nya xor-summan. När ett drag som ger summan 0 hittas retuneras draget. Om inget darg skulle hittas returneras det senaste draget datorn kolla på som gick att spela.  
+#
+# Argument:
+# stack_arr: En array med anatlet pinnar i varje hög. 
+#
+# Return: 
+# stack: Vilken hög datorn ska spela från.
+# move: Hur många pinnar datorn ska ta från högen.
+# possible_move: En array med följande struktur: [stack, move]. Innehåller det senaste darget som GÅR att spela, används om datorn inte skulle hitta ett darg som ger xor-summan 0. 
+#
+# Exempel: 
+# best_move([1, 2, 3, 4]) => [3, 3]
+#
+# Datum: 2025-04-26
+# Namn: Arvid Möller
 def best_move(stack_arr):
-    print("bst move")
     stack = 0
     while stack < len(stack_arr):
-        for move in range(1,4):
-            print("in for loop")
+        for move in range(1, stack_arr[stack]+1):
             tmp_arr = stack_arr.copy()
-            print(stack_arr)
             if tmp_arr[stack] - move >= 0:
                 tmp_arr[stack] -= move 
                 if xor_sum(tmp_arr) == 0:
                     print("bst move found")
                     return stack, move
-                possible_move = [stack, move]
+                elif tmp_arr[stack] - move >= 0:
+                    possible_move = [stack, move]
         stack+=1
     
     return possible_move
     
 
 
-# print(best_move([0, 0, 0, 0]))
-
-print(xor_sum([1, 0, 1]))
+print(best_move([6, 3, 9]))
