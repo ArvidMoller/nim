@@ -27,7 +27,7 @@ def stacks(stack_num, stick_num):
         stick_num -= 1
 
     return stack_arr
-    
+
 
 # Beskrivning: Denna funktion omvandlar alla tal i en array till binära tal, samt normaliserar dem i längd och tar bort "0b" prefixet. Detta sker genom  att iterera genom arr och omvandla varje element till binärt, samt byta ut "0b" til inget med .replace(). Längden på varje binärt tal kollas också, längden av det största talet sparas i longest. Sedan itererar jag genom arrayen med alla binära tal (rArr) och lägger till nollor i början på alla tal som är kortare än longest. 
 #
@@ -243,7 +243,7 @@ def play_against_computer(stack_arr, stack_num):
             stack_arr[stack-1] -= move
 
             if sum(stack_arr) == 0:
-                print(f"Du tog sista pinnen och vann!")
+                print(f"Du tog sista pinnen och vann! Hur gjorde du ens det? Jag trodde att det var omöjligt att vinna mot datorn.")
                 break
 
             current_player = "computer"
@@ -273,11 +273,11 @@ def play_against_computer(stack_arr, stack_num):
 # Datum: 2025-04-26
 # Namn: Arvid Möller
 def nim_game():
-    print("Välkommen till Nim! Ditt mål är att ta den sista pinnen, du kan ta ett valfritt anatl pinnar ur varje hög.")
+    print("Välkommen till Nim! Ditt mål är att ta den sista pinnen, du kan ta ett valfritt antal pinnar ur varje hög.")
 
     while True:
         try:
-            stick_num = int(input("Hur många pinnar vill du spela med (21 rekommenderas)?\n"))
+            stick_num = int(input("Hur många pinnar vill du spela med (9-100, men 21 rekommenderas)?\n"))
             if stick_num in range(9, 100):
                 break
             else:
@@ -287,7 +287,7 @@ def nim_game():
 
     while True:
         try:
-            stack_num = int(input("Hur många högar vill du spela med (3 rekommenderas)?\n"))
+            stack_num = int(input("Hur många högar vill du spela med (2-10, men 3 rekommenderas)?\n"))
             if stack_num in range(2, 10) and stick_num/stack_num >= 1:
                 break
             else:
@@ -310,6 +310,18 @@ def nim_game():
         play_against_computer(stack_arr, stack_num)
         
     
-# Starta spelet om det öppnas i terminalen
+# Starta spelet om det öppnas i terminalen, samt lägg spelet i en while loop så spelaren kan välja att spela igen.
 if __name__ == "__main__":
-    nim_game()
+    playInput = "y"
+
+    while playInput == "y":
+        nim_game()
+
+        while True:
+            playInput = input("\nVill du spela igen? (y/n)\n")
+            if playInput in ["y", "n"]:
+                if playInput == "y":
+                    print("\n")
+                break
+            else:
+                print("Ogiltigt svar, svar y eller n")
